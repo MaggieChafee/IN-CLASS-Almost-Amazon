@@ -25,8 +25,16 @@ const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// TODO: GET SINGLE BOOK
-const getSingleBook = () => {};
+const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books/${firebaseKey}.JSON`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 const createBook = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json`, {
@@ -48,7 +56,7 @@ const updateBook = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   }).then((response) => response.json())
-    .then(resolve)
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
@@ -61,7 +69,6 @@ const booksOnSale = () => new Promise((resolve, reject) => {
   }).then((response) => response.json())
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
-  console.warn(booksOnSale);
 });
 
 // TODO: STRETCH...SEARCH BOOKS
