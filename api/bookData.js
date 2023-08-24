@@ -26,7 +26,7 @@ const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books/${firebaseKey}.JSON`, {
+  fetch(`${endpoint}/books/${firebaseKey}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
