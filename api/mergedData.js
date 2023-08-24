@@ -1,4 +1,4 @@
-import { getSingleAuthor } from './authorData';
+import { getAuthorBooks, getSingleAuthor } from './authorData';
 import { getSingleBook } from './bookData';
 
 // Get data for viewBook
@@ -9,4 +9,10 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-export default getBookDetails;
+const getAuthorDetails = async (firebaseKey) => {
+  const author = await getSingleAuthor(firebaseKey);
+  const books = await getAuthorBooks(author.firebaseKey);
+
+  return { ...author, books };
+};
+export { getBookDetails, getAuthorDetails };
