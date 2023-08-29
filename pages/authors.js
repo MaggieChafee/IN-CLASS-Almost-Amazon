@@ -2,7 +2,7 @@ import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 
 const emptyAuthors = () => {
-  const domString = '<h1>No Authors</h1>';
+  const domString = '<h3>No Authors Found</h3>';
   renderToDOM('#store', domString);
 };
 
@@ -15,11 +15,8 @@ const showAuthors = (array) => {
 
   let domString = '';
 
-  if (array.length < 1) {
-    domString += '<h3>No Authors Found</h3>';
-  } else {
-    array.forEach((item) => {
-      domString += `
+  array.forEach((item) => {
+    domString += `
       <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
@@ -31,9 +28,7 @@ const showAuthors = (array) => {
         </div>
       </div>
       `;
-    });
-  }
-
+  });
   renderToDOM('#store', domString);
 };
 
