@@ -5,16 +5,22 @@ import domEvents from '../events/domEvents';
 import formEvents from '../events/formEvents';
 import navigationEvents from '../events/navigationEvents';
 import { getBooks } from '../api/bookData';
-import { showBooks } from '../pages/books';
+import { emptyBooks, showBooks } from '../pages/books';
 
-const startApp = () => {
+const startApp = (user) => {
   domBuilder(); // BUILD THE DOM
-  domEvents(); // ADD THE EVENT LISTENTERS TO THE DOM
-  formEvents(); // ADD FORM EVENT LISTENTERS TO THE DOM
+  domEvents(user); // ADD THE EVENT LISTENTERS TO THE DOM
+  formEvents(user); // ADD FORM EVENT LISTENTERS TO THE DOM
   navBar(); // DYNAMICALLY ADD THE NAV
   logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT
-  navigationEvents(); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
-  getBooks().then(showBooks);
+  navigationEvents(user); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
+  getBooks(user.uid).then((array) => {
+    if (array.length) {
+      showBooks(array);
+    } else {
+      emptyBooks();
+    }
+  });
 };
 
 export default startApp;

@@ -5,17 +5,17 @@ import { favoriteAuthor, getAuthors } from '../api/authorData';
 import { emptyAuthors, showAuthors } from '../pages/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (user) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
   document.querySelector('#sale-books').addEventListener('click', () => {
-    booksOnSale().then(showBooks);
+    booksOnSale(user.uid).then(showBooks);
   });
 
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then((array) => {
+    getBooks(user.uid).then((array) => {
       if (array.length) {
         showBooks(array);
       } else {
@@ -25,7 +25,7 @@ const navigationEvents = () => {
   });
 
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then((array) => {
+    getAuthors(user.uid).then((array) => {
       if (array.length) {
         showAuthors(array);
       } else {
@@ -35,7 +35,7 @@ const navigationEvents = () => {
   });
 
   document.querySelector('#fave-authors').addEventListener('click', () => {
-    favoriteAuthor().then(showAuthors);
+    favoriteAuthor(user.uid).then(showAuthors);
   });
 
   // STRETCH: SEARCH
