@@ -14,7 +14,9 @@ const domEvents = (user) => {
     if (e.target.id.includes('delete-book')) {
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
-        deleteBook(firebaseKey).then(getBooks).then(showBooks);
+        deleteBook(firebaseKey).then(() => {
+          getBooks(user.uid).then(showBooks);
+        });
       }
     }
 
